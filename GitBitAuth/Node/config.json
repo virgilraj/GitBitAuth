@@ -1,0 +1,22 @@
+﻿{
+    "bitbucket": {
+        "clientKey": "EPsJnYupmfxcdSvxku",
+        "clientsecret": "fx4cdcwYUbAzn7ejy8ZVm722HSwpKAvs",
+        "calbackurl": "http://localhost:8888/callbackbitbucket",
+        "callbackmethod": "/callbackbitbucket"
+    },
+    "github": { 
+        "clientKey": "480c9bdcb7c9e93e60bd",
+        "clientsecret": "30bb3c7625622d44c4f340a54e12879f5622c90a",
+        "site": "https://github.com/login",
+        "tockenpath": "/oauth/access_token",
+        "calbackurl": "http://localhost:8888/callback",
+        "callbackmethod": "/callback"
+    },
+    "port": "8888",
+    "redirectUrl": "http://localhost:55252/Site/repository.html?",
+    "homeurl" :  "http://localhost:55252/Site/home.html",
+    "callbackmethod": "/callback",
+    "bitbucketscriptblock": "<script type=\"text/javascript\"> var bitbucketResp = {script};</script>",
+    "githubscriptblock" :  "<script type=\"text/javascript\"> var githubResp = {script};</script>"
+}
