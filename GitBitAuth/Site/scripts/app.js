@@ -1,44 +1,45 @@
 ﻿//Global variables
+var app = angular.module('myModule', ['ngResource']);
 
-app.factory('repository', function ($http) {
-    return {
-        get: function (callback, urls) {
-            $http.get(urls).success(callback);
-        }
-        ,
+function repCtrl($scope, $resource, $location) {
 
-        //method for insert
-        insert: function (callback, contact, responsecallback) {
-            $http.post(url, contact).success(callback).then(responsecallback);
-        },
+    $scope.bitRepos = [];
+    $scope.gitRepos = [];
+    $scope.isBitbucket = false;
 
-        //method for update
-        update: function (callback, contact, updateurl) {
-            $http.put(updateurl, contact).success(callback);
-        },
+    $scope.load = function () {
+        var bitbucketurl = 'http://localhost\\:8888/getbitbucket';
+        var githuburl = 'http://localhost\\:8888/getgithub';
+        var token = typeof ($location.search()).access_token != 'undefined' ? ($location.search()).access_token : '';
 
-        //method for delete
-        delete: function (callback, deleteurl) {
-            $http.delete(deleteurl).success(callback);
-        },
+        $scope.isBitbucket = token != '' ? false : true;
 
-        getWebApi: function (url) {
-            return $http.get(url).then(function (resp) {
-                return resp.data
-            });
-        },
+        var url = $scope.isBitbucket ? bitbucketurl : githuburl;
 
-        getTypeAhead: function (url) {
-            return $http.get(url).then(function (resp) {
-                //return resp.data; // success callback returns this
-                return resp.data.value;
-            });
-        },
-        getDashboard: function (url) {
-            return $http.get(url).then(function (resp) {
-                return resp;
-            });
-        }
+        var resource = serviceConnection(url);
+
+        resource.get({ token: token }, function processResponse(response) {
+            if ($scope.isBitbucket)
+            {
+                $scope.bitRepos = response.repos;
+            }
+            else
+            {
+                $scope.gitRepos = response.respoRes;
+            }
+        });
+        
     }
-});
 
+    function serviceConnection(url) {
+        return $resource(url + '?alt=:alt&method=:callback&token=:token',
+           { alt: 'json', callback: 'JSON_CALLBACK' },
+           {
+               get: {
+                   method: 'JSONP', headers: [
+                       { 'Content-Type': 'application/json' },
+                       { 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' }]
+               }, isArray: true
+           });
+    }
+}

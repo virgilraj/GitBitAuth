@@ -1,7 +1,9 @@
 ﻿var config = require('./config.json');
-var express = require('express'),
-app = express();
+var express = require('express')
+    , cors = require('cors')
+    ,app = express();
 
+path = require('path');
 //Start : Bitbucket
 var passport = require('passport')
   , util = require('util')
@@ -9,6 +11,10 @@ var passport = require('passport')
 var session = require('express-session');
 
 var resp = {};
+
+//enable CORS
+//app.use(cors());
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //This setting is required to enable passport authentication
 app.use(express.static('public'));
@@ -49,8 +55,15 @@ function ensureAuthenticated(req, res, next) {
 }
 
 //Get bitbucket response from seson - nodejs passport defult session
-app.get('/getbitbucket', ensureAuthenticated, function (req, res) {
-    res.send(JSON.stringify(req.user));
+app.get('/getbitbucket', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    if (req.query.method)
+    {
+        res.end(req.query.method + '(' + JSON.stringify(req.user) + ')');
+    }
+    else{
+        res.end(JSON.stringify(JSON.stringify(req.user)));
+    }
 });
 
 app.get('/auth/bitbucket', passport.authenticate('bitbucket'));
@@ -103,12 +116,18 @@ app.get('/getgithub', function (req, res) {
 
         github.repos.getAll({}, function (err1, respoRes) {
             gitRes.respoRes = respoRes;
-            res.send(JSON.stringify(gitRes));
+            res.setHeader('Content-Type', 'application/json');
+            if (req.query.method) {
+                res.end(req.query.method + '(' + JSON.stringify(gitRes) + ')');
+            }
+            else {
+                res.end(JSON.stringify(JSON.stringify(gitRes)));
+            }
 
         });
     }
     else {
-        res.send('');
+        res.send({});
     }
 });
 

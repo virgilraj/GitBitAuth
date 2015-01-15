@@ -2,9 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <script src="scripts/jquery-1.10.2.js"></script>
     <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-resource.js"></script>
 </head>
-<body>
+<body ng-app="myModule">
+    <div ng-controller="repCtrl" ng-init="load()">
+        <br />
+        <br />
+        <br />
+        <a href="Home.html">Home</a>
+        <table border="1" ng-show="!isBitbucket">
+            <tr>
+                <th colspan="4">Github Repositories</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Language</th>
+                <th>Clone url</th>
+            </tr>
+            <tr ng-repeat="repo in gitRepos">
+                <td>{{repo.name}}</td>
+                <td>{{repo.description}}</td>
+                <td>{{repo.language}}</td>
+                <td>{{repo.clone_url}}</td>
+            </tr>
+        </table>
 
+        <table border="1" ng-show="isBitbucket">
+            <tr>
+                <th colspan="4">Bitbucket Repositories</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Language</th>
+                <th>Clone url</th>
+            </tr>
+            <tr ng-repeat="repo in bitRepos">
+                <td>{{repo.name}}</td>
+                <td>{{repo.description}}</td>
+                <td>{{repo.language}}</td>
+                <td>{{repo.resource_uri}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="scripts/app.js"></script>
 </body>
+
 </html>

@@ -1001,6 +1001,7 @@
     <Content Include="Site\scripts\angular.js" />
     <Content Include="Site\scripts\angular.min.js" />
     <Content Include="Site\scripts\app.js" />
+    <Content Include="Site\scripts\jquery-1.10.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
