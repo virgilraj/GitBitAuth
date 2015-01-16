@@ -62,7 +62,7 @@ app.get('/getbitbucket', function (req, res) {
         res.end(req.query.method + '(' + JSON.stringify(req.user) + ')');
     }
     else{
-        res.end(JSON.stringify(JSON.stringify(req.user)));
+        res.end(JSON.stringify(req.user));
     }
 });
 
@@ -122,7 +122,7 @@ app.get('/getgithub', function (req, res) {
                 res.end(req.query.method + '(' + JSON.stringify(gitRes) + ')');
             }
             else {
-                res.end(JSON.stringify(JSON.stringify(gitRes)));
+                res.end(JSON.stringify(gitRes));
             }
 
         });
