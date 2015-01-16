@@ -96,7 +96,8 @@ var oauth2 = require('simple-oauth2')({
 // Authorization uri definition
 var authorization_uri = oauth2.authCode.authorizeURL({
     redirect_uri: config.github.calbackurl,
-    scope: ["user", "public_repo", "repo", "repo:status", "gist"]
+    scope: "user,repo,gist,public_repo,repo:status"
+    //scope: ["user", "public_repo", "repo", "repo:status", "gist"]
 });
 
 // Initial page redirecting to Github
