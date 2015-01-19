@@ -346,6 +346,11 @@
     <Content Include="Node\node_modules\github\templates\section.js.tpl" />
     <Content Include="Node\node_modules\github\templates\test_handler.js.tpl" />
     <Content Include="Node\node_modules\github\templates\test_section.js.tpl" />
+    <Content Include="Node\node_modules\oath\examples\co.js" />
+    <Content Include="Node\node_modules\oath\goodwin.conf.js" />
+    <Content Include="Node\node_modules\oath\index.js" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\index.js" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\node_modules\assertion-error\index.js" />
     <Content Include="Node\node_modules\passport-bitbucket\.travis.yml" />
     <Content Include="Node\node_modules\passport-bitbucket\LICENSE" />
     <Content Include="Node\node_modules\passport-bitbucket\node_modules\passport-oauth\.travis.yml" />
@@ -509,6 +514,18 @@
     <Content Include="Node\node_modules\simple-oauth2\README.md" />
     <Content Include="Node\node_modules\simple-oauth2\test\fixtures\access_token.json" />
     <Content Include="Node\node_modules\simple-oauth2\test\mocha.opts" />
+    <Content Include="Node\node_modules\oath\.npmignore" />
+    <Content Include="Node\node_modules\oath\History.md" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\.npmignore" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\History.md" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\node_modules\assertion-error\.npmignore" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\node_modules\assertion-error\History.md" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\node_modules\assertion-error\package.json" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\node_modules\assertion-error\README.md" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\package.json" />
+    <Content Include="Node\node_modules\oath\node_modules\simple-assert\README.md" />
+    <Content Include="Node\node_modules\oath\package.json" />
+    <Content Include="Node\node_modules\oath\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

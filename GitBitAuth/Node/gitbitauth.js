@@ -7,8 +7,16 @@ path = require('path');
 //Start : Bitbucket
 var passport = require('passport')
   , util = require('util')
-  , BitbucketStrategy = require('passport-bitbucket').Strategy;
+  , BitbucketStrategy = require('passport-bitbucket');
 var session = require('express-session');
+
+var bbInfo = {
+    consumerKey: config.bitbucket.clientKey,
+    consumerSecret: config.bitbucket.clientsecret,
+    callbackURL: config.bitbucket.callbackmethod
+};
+
+var bbpassport = new BitbucketStrategy.Strategy(bbInfo, function () { });
 
 var resp = {};
 
@@ -34,17 +42,13 @@ passport.deserializeUser(function (obj, done) {
     done(null, obj);
 });
 
-passport.use(new BitbucketStrategy({
-    consumerKey: config.bitbucket.clientKey,
-    consumerSecret: config.bitbucket.clientsecret,
-    callbackURL: config.bitbucket.callbackmethod
-},
+passport.use(new BitbucketStrategy.Strategy(bbInfo,
   function (token, tokenSecret, profile, done) {
       resp.token = token;
       resp.tokenSecret = tokenSecret;
       resp.user = profile._json.user;
-      resp.repos = profile._json.repositories;
-      resp.raw = profile._raw;
+      //resp.repos = profile._json.repositories;
+      //resp.raw = profile._raw;
       done(null, resp);
   }
 ));
@@ -57,13 +61,21 @@ function ensureAuthenticated(req, res, next) {
 //Get bitbucket response from seson - nodejs passport defult session
 app.get('/getbitbucket', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    if (req.query.method)
-    {
-        res.end(req.query.method + '(' + JSON.stringify(req.user) + ')');
-    }
-    else{
-        res.end(JSON.stringify(req.user));
-    }
+    bbpassport.getRepos(req.user.token, req.user.tokenSecret, null, function (err, ress) {
+        if (err) {
+            res.end(JSON.stringify({}));
+        } else {
+            var bbRes = {};
+            bbRes.repos = ress.repos;
+            bbRes.profile = req.user;
+            if (req.query.method) {
+                res.end(req.query.method + '(' + JSON.stringify(bbRes) + ')');
+            }
+            else {
+                res.end(JSON.stringify(bbRes));
+            }
+        }
+    });
 });
 
 app.get('/auth/bitbucket', passport.authenticate('bitbucket'));
